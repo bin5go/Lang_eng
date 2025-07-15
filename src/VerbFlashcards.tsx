@@ -168,7 +168,7 @@ const VerbFlashcards = () => {
 
   const checkAnswers = () => {
     if (!shuffledVerbs.length) return;
-    
+
     const currentVerb = shuffledVerbs[currentIndex];
     let correct1 = false;
     let correct2 = false;
@@ -192,8 +192,8 @@ const VerbFlashcards = () => {
     setFeedback({
       show: true,
       correct: bothCorrect,
-      message: bothCorrect 
-        ? 'Excellent! Both answers are correct!' 
+      message: bothCorrect
+        ? 'Excellent! Both answers are correct!'
         : `Correct answers: ${expectedAnswers[0]} / ${expectedAnswers[1]}`
     });
     setShowAnswers(true);
@@ -234,39 +234,41 @@ const VerbFlashcards = () => {
   if (!shuffledVerbs.length) return <div>Loading...</div>;
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">Irregular Verb Flashcards</h1>
-          <p className="text-gray-600">Master past forms and past participles</p>
+    <div className="app-container">
+      <div className="flashcard">
+        <div className="flashcard-header">
+          <h1>Irregular Verb Flashcards</h1>
+          <p>Master past forms and past participles</p>
         </div>
 
-        <div className="flex justify-between items-center mb-6">
-          <div className="text-sm text-gray-500">
+        <div className="flashcard-topbar">
+          <span className="progress-info">
             Card {currentIndex + 1} of {shuffledVerbs.length}
-          </div>
-          <div className="flex gap-2">
-            <button
-              onClick={toggleMode}
-              className="px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors text-sm"
-            >
-              Mode: {promptInfo.title}
-            </button>
-            <button
-              onClick={shuffleVerbs}
-              className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors"
-            >
-              <RotateCcw className="w-4 h-4" />
-            </button>
+          </span>
+          <button
+            onClick={toggleMode}
+            className="button"
+          >
+            Mode: {promptInfo.title}
+          </button>
+          <button
+            onClick={shuffleVerbs}
+            className="action-button" title="Shuffle Cards">
+            <RotateCcw size={18} />
+          </button>
+        </div>
+      <div>
+        <p>💡 Tip: Use the "Mode" button to switch between different testing methods</p>
+      </div>
+      
+        <div>
+          <div>{promptInfo.instruction}</div>
+          <div style={{ textAlign: 'center', margin: '1em 0' }}>
+            <span className="flashcard-given-verb">{getCurrentWord()}</span>
           </div>
         </div>
 
-        <div className="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl p-8 text-white text-center mb-6">
-          <div className="text-sm opacity-80 mb-2">{promptInfo.instruction}</div>
-          <div className="text-4xl font-bold mb-4">{getCurrentWord()}</div>
-        </div>
-
-        <div className="space-y-4 mb-6">
+        <div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               {promptInfo.labels[0]}
@@ -274,21 +276,21 @@ const VerbFlashcards = () => {
             <input
               type="text"
               value={userAnswers.answer1}
-              onChange={(e) => setUserAnswers({...userAnswers, answer1: e.target.value})}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              onChange={(e) => setUserAnswers({ ...userAnswers, answer1: e.target.value })}
+              className="flashcard-input"
               placeholder="Enter your answer..."
               disabled={showAnswers}
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label>
               {promptInfo.labels[1]}
             </label>
             <input
               type="text"
               value={userAnswers.answer2}
-              onChange={(e) => setUserAnswers({...userAnswers, answer2: e.target.value})}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              onChange={(e) => setUserAnswers({ ...userAnswers, answer2: e.target.value })}
+              className="flashcard-input"
               placeholder="Enter your answer..."
               disabled={showAnswers}
             />
@@ -298,58 +300,51 @@ const VerbFlashcards = () => {
         {!showAnswers ? (
           <button
             onClick={checkAnswers}
-            className="w-full py-3 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600 transition-colors font-medium"
+            className="check-button"
             disabled={!userAnswers.answer1.trim() || !userAnswers.answer2.trim()}
           >
             Check Answers
           </button>
         ) : (
-          <div className="space-y-4">
-            <div className={`p-4 rounded-lg flex items-center gap-3 ${
-              feedback.correct ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-            }`}>
-              {feedback.correct ? <CheckCircle className="w-5 h-5" /> : <XCircle className="w-5 h-5" />}
-              <span className="font-medium">{feedback.message}</span>
+          <div>
+            <div className={`feedback ${feedback.correct ? 'correct' : 'incorrect'}`}>
+              {feedback.correct ? <CheckCircle size={20} /> : <XCircle size={20} />}
+              {feedback.message}
             </div>
-
-            <div className="bg-gray-50 rounded-lg p-4">
-              <h3 className="font-semibold text-gray-800 mb-2">Complete Verb Forms:</h3>
-              <div className="text-sm text-gray-600">
-                <span className="font-medium">Base:</span> {shuffledVerbs[currentIndex].base} • 
-                <span className="font-medium"> Past:</span> {shuffledVerbs[currentIndex].past} • 
-                <span className="font-medium"> Past Participle:</span> {shuffledVerbs[currentIndex].participle}
+            <div className="answers-info">
+              <strong>Complete Verb Forms:</strong>
+              <div>
+                Base: {shuffledVerbs[currentIndex].base} &nbsp; | &nbsp;
+                Past: {shuffledVerbs[currentIndex].past} &nbsp; | &nbsp;
+                Past Participle: {shuffledVerbs[currentIndex].participle}
               </div>
             </div>
           </div>
         )}
 
-        <div className="flex justify-between items-center mt-8">
+        <div className="flashcard-nav">
           <button
             onClick={prevCard}
             disabled={currentIndex === 0}
-            className="flex items-center gap-2 px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flashcard-nav-btn"
           >
-            <ChevronLeft className="w-4 h-4" />
+            <ChevronLeft style={{marginRight: '7px'}} size={20}/>
             Previous
           </button>
 
-          <div className="text-sm text-gray-500">
+          <div className="progress-info">
             Progress: {Math.round(((currentIndex + 1) / shuffledVerbs.length) * 100)}%
           </div>
 
           <button
             onClick={nextCard}
             disabled={currentIndex === shuffledVerbs.length - 1}
-            className="flex items-center gap-2 px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flashcard-nav-btn"
           >
             Next
-            <ChevronRight className="w-4 h-4" />
+            <ChevronRight style={{marginRight: '7px'}} size={20}/>
           </button>
         </div>
-      </div>
-
-      <div className="mt-6 text-center text-sm text-gray-600">
-        <p>💡 Tip: Use the "Mode" button to switch between different testing methods</p>
       </div>
     </div>
   );

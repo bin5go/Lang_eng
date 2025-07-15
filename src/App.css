@@ -1,38 +1,256 @@
-.App {
-  text-align: center;
+body {
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  background: #eef2fb;
+  margin: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.app-container {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  background: #eef2fb;
+  font-family: inherit;
+}
+
+.flashcard {
+  background: #e8ecfa;
+  border-radius: 1.8rem;
+  box-shadow: 0 6px 36px rgba(90,100,128,0.18);
+  padding: 2.5rem 2rem;
+  width: 98vw;
+  max-width: 430px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  align-items: center;
+  font-family: inherit;
+}
+
+.flashcard-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.flashcard-header h1 {
+  color: #121431;
+  font-size: 2.1rem;
+  font-weight: 700;
+  margin: 0;
+  font-family: inherit;
+  text-align: center;
+  letter-spacing: -0.02em;
+}
+.flashcard-header p {
+  color: #121431;
+  font-size: 1.08rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+.flashcard-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.4rem;
+}
+
+.flashcard-given-verb {
+  display: inline-block;
+  font-size: 2.9rem;
+  font-weight: 900;
+  background: #d5dfff;
+  color: #1976d2;
+  border-radius: 8px;
+  padding: 0.22em 1.1em;
+  margin: 0.65em 0;
+  font-family: inherit;
+  letter-spacing: 0.02em;
+  box-shadow: 0 2px 12px #b7b5f852;
+}
+
+label {
+  font-size: 1.07rem;
+  font-family: inherit;
+  color: #37395b;
+  font-weight: 600;
+  margin-bottom: 0.22em;
+  display: block;
+}
+
+.progress-info {
+  font-size: 1.05rem;
+  color: #7a7ba4;
+  font-weight: 500;
+  margin: 0.35em 0;
+  font-family: inherit;
+  text-align: center;
+}
+
+button {
+  background: #1976d2;
   color: white;
+  border: none;
+  padding: 0.7em 2.2em;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 0.5em;
+  box-shadow: 0 2px 6px rgba(25, 118, 210, 0.07);
+  transition: background 0.2s;
+}
+button:hover {
+  background: #1565c0;
 }
 
-.App-link {
-  color: #61dafb;
+.mode-button {
+  background: #8e24aa;
+  color: #fff;
+  border: none;
+  padding: 0.6em 1.5em;
+  border-radius: 8px;
+  margin-right: 0.5em;
+  transition: background 0.2s;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.mode-button:hover {
+  background: #7b1fa2;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.action-button {
+  background: #7ca0dd;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.45em 1.1em;
+  cursor: pointer;
+  transition: background 0.17s;
+  font-family: inherit;
+}
+
+.action-button:hover {
+  background: #375088;
+}
+
+.check-button {
+  width: 100%;
+  padding: 1em;
+  background: #1976d2;
+  color: #fff;
+  border-radius: 8px;
+  border: none;
+  margin-top: 0.8em;
+  font-size: 1.07rem;
+  font-weight: 600;
+}
+.check-button:disabled {
+  background: #90caf9;
+  cursor: not-allowed;
+}
+
+.flashcard-input {
+  width: 100%;
+  padding: 0.8em;
+  border: 1.5px solid #d3d3d3;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  margin-bottom: 0.5em;
+}
+
+.flashcard-input:focus {
+  outline: none;
+  border-color: #1976d2;
+  background: #e3f0fc;
+}
+
+.answers-info {
+  background: #f4f7fa;
+  padding: 0.8em 1em;
+  border-radius: 8px;
+  margin-top: 0.5em;
+  font-size: 0.99rem;
+  color: #444;
+}
+
+.feedback {
+  padding: 1em;
+  border-radius: 8px;
+  margin-bottom: 1em;
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+  font-weight: 500;
+}
+.feedback.correct {
+  background: #e3fcec;
+  color: #218838;
+}
+.feedback.incorrect {
+  background: #fbdcdc;
+  color: #c82333;
+}
+
+@media (max-width: 600px) {
+  .app-container {
+    padding: 1rem;
   }
-  to {
-    transform: rotate(360deg);
+  .flashcard {
+    font-size: 1.1rem;
+    padding: 1rem;
   }
 }
+
+.flashcard-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5em;
+  width: 100%;
+  gap: 1.2em;
+}
+
+.flashcard-nav-btn {
+  flex: 1 1 44%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1976d2;
+  color: #fff !important;
+  padding: 0.76em 0;
+  border: none;
+  font-size: 1.07rem;
+  border-radius: 0.7em;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.14s, box-shadow 0.18s;
+  box-shadow: 0 2px 8px #b6c4fa28;
+  letter-spacing: 0.01em;
+}
+
+.flashcard-nav-btn:hover:enabled {
+  background: #1976d2;
+  box-shadow: 0 4px 20px #22224316;
+}
+
+.flashcard-nav-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  background: #b5c6f8;
+  color: #dde2fa;
+}
+
+@media (max-width: 530px) {
+  .flashcard-nav {
+    gap: 0.5em;
+  }
+  .flashcard-nav-btn {
+    font-size: 0.98rem;
+    padding: 0.62em 0;
+  }
+}
+
+

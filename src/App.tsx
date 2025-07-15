@@ -4,7 +4,8 @@ import './App.css';
 
 function App() {
   return (
-    <div className="App">
+    <div className="app-container">
+      <h1>Verb Flashcards</h1>
       <VerbFlashcards />
     </div>
   );
