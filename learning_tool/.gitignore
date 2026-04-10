@@ -1,0 +1,16 @@
+# Generated quiz outputs
+quiz_*.md
+quiz_*.docx
+
+# Source images and PDFs (large binary files)
+*.pdf
+word_list_gw2/
+word_list_gw3/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# macOS
+.DS_Store
